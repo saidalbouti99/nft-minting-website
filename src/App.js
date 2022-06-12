@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Main from "./components/Main";
+import Install from "./components/Install";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [accounts, setAccounts] = useState([]);
+  if (window.ethereum) {
+    return (
+      <div>
+        <Navbar accounts={accounts} setAccounts={setAccounts} />
+        <Main accounts={accounts} setAccounts={setAccounts} />;
+      </div>
+    );
+  } else {
+    return <Install />;
+  }
 }
 
 export default App;

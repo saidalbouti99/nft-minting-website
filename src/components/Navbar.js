@@ -1,0 +1,33 @@
+import { useState } from "react";
+
+function Navbar({ accounts, setAccounts }) {
+  const isConnected = Boolean(accounts[0]);
+  async function connectAccount() {
+    //Metamask injection
+    if (window.ethereum) {
+      accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setAccounts(accounts);
+    }
+  }
+  return (
+    <div>
+      <div>Facebook</div>
+      <div>Twitter</div>
+      <div>Email</div>
+
+      <div>About</div>
+      <div>Mint</div>
+      <div>Team</div>
+
+      {isConnected ? (
+        <p>Connected</p>
+      ) : (
+        <button onClick={connectAccount}>Connect</button>
+      )}
+    </div>
+  );
+}
+
+export default Navbar;
